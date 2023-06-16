@@ -59,30 +59,4 @@ Console.WriteLine("");
 Console.WriteLine("Presione una tecla para finalizar: ");
 Console.ReadLine();
 Environment.Exit(0);
-/*
-Console.WriteLine("Ingrese la Ruta de la imagen a Recortar: ");
-string ?rutaImagen= Console.ReadLine();
 
-imagenATrabajar = new Imagen(new Bitmap(rutaImagen));
-manejoImagen=new ManejoImagen(imagenATrabajar);
-manejoImagen.DefinirLimitesImagen();
-
-Bitmap MapaBitNuevaImagen = manejoImagen.BitmapRecortado();
-
-int tamanoLado = manejoImagen.ladoSize(MapaBitNuevaImagen,0.75);
-int[] posicionInicial = manejoImagen.PosicionInicial(MapaBitNuevaImagen, tamanoLado);
-Imagen recorte = new(MapaBitNuevaImagen);
-
-Bitmap imagenFinal =manejoImagen.EscalarBitmap(manejoImagen.GenerarImagenFinal(tamanoLado, posicionInicial, recorte),1200,1200);
-
-Console.WriteLine("Indique la ruta para guardar");
-
-string ?filePath=Console.ReadLine(); 
-
-imagenFinal.Save(filePath,ImageFormat.Jpeg);
-
-foreach(string ruta in rutasDeImagenes)
-{
-    Console.WriteLine(ruta);
-}
-*/
