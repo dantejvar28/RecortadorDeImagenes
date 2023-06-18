@@ -3,6 +3,7 @@ using RecortadorDeImagenes;
 using System.Drawing;
 using System.Drawing.Imaging;
 
+
 namespace RecortadorDeImagenes
 {
     public class ManejoImagen
@@ -136,7 +137,7 @@ namespace RecortadorDeImagenes
         #endregion
 
 
-
+        #region Finalizar Imagen
         //--- Establecer Medidas de Nueva Imagen
 
         public int ladoSize(Bitmap recorte,double porcentajeDeOcupacion)
@@ -221,5 +222,12 @@ namespace RecortadorDeImagenes
 
             return bitmapEscalado;
         }
+
+        #endregion
+
+        // -- Convertir Imagenes
+
+        
+
     }
 }

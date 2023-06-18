@@ -28,7 +28,7 @@ void RecortarImagenes(List<string> paths,string outputPath)
     int imageNumber = 0;
     foreach (string path in paths)
     {
-        Imagen imagen = new Imagen(new Bitmap(path));
+        Imagen imagen = new Imagen(ImageConversion.LoadBitmapAccordingFormat(path));
         ManejoImagen manejo=new ManejoImagen(imagen);
         manejo.DefinirLimitesImagen();
         
