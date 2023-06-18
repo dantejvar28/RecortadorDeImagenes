@@ -28,6 +28,7 @@ void RecortarImagenes(List<string> paths,string outputPath)
     int imageNumber = 0;
     foreach (string path in paths)
     {
+        string imageName = Path.GetFileNameWithoutExtension(path);
         Imagen imagen = new Imagen(ImageConversion.LoadBitmapAccordingFormat(path));
         ManejoImagen manejo=new ManejoImagen(imagen);
         manejo.DefinirLimitesImagen();
@@ -38,10 +39,9 @@ void RecortarImagenes(List<string> paths,string outputPath)
         
         Imagen imagenRecortada = new(MapaNuevaImagen);
         Bitmap imagenFinal = manejo.EscalarBitmap(manejo.GenerarImagenFinal(ladoSize, initialPosition, imagenRecortada), 1200, 1200);
-        string imagePath = outputPath+"\\" + imageNumber + ".jpg";
-        imageNumber++;
+        string imagePath = outputPath+"\\" + imageName+"-cent" + ".jpg";
         imagenFinal.Save(imagePath,ImageFormat.Jpeg);
-        
+        imageNumber++;
         
         Console.WriteLine("Procesando Imágenes: "+Convert.ToInt32((Convert.ToDouble(imageNumber)/Convert.ToDouble(totalImages))*100)+"%");
     }
