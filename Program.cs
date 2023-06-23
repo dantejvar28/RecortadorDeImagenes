@@ -3,7 +3,7 @@
 using RecortadorDeImagenes;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Runtime.CompilerServices;
+
 
 ManejoImagen manejoImagen;
 ListadorDeImagenes listadorDeImagenes;
@@ -27,22 +27,31 @@ void RecortarImagenes(List<string> paths,string outputPath)
     int totalImages=paths.Count;
     int imageNumber = 0;
     foreach (string path in paths)
-    {
-        string imageName = Path.GetFileNameWithoutExtension(path);
-        Imagen imagen = new Imagen(ImageConversion.LoadBitmapAccordingFormat(path));
-        ManejoImagen manejo=new ManejoImagen(imagen);
-        manejo.DefinirLimitesImagen();
-        
-        Bitmap MapaNuevaImagen = manejo.BitmapRecortado();
-        int ladoSize = manejo.ladoSize(MapaNuevaImagen, 0.75);
-        int[]initialPosition=manejo.PosicionInicial(MapaNuevaImagen, ladoSize);
-        
-        Imagen imagenRecortada = new(MapaNuevaImagen);
-        Bitmap imagenFinal = manejo.EscalarBitmap(manejo.GenerarImagenFinal(ladoSize, initialPosition, imagenRecortada), 1200, 1200);
-        string imagePath = outputPath+"\\" + imageName+"-cent" + ".jpg";
-        imagenFinal.Save(imagePath,ImageFormat.Jpeg);
-        imageNumber++;
-        
+    {   
+        try
+        {
+            string imageName = Path.GetFileNameWithoutExtension(path);
+            Imagen imagen = new Imagen(ImageConversion.LoadBitmapAccordingFormat(path));
+            ManejoImagen manejo = new ManejoImagen(imagen);
+            manejo.DefinirLimitesImagen();
+
+            Bitmap MapaNuevaImagen = manejo.BitmapRecortado();
+            int ladoSize = manejo.ladoSize(MapaNuevaImagen, 0.75);
+            int[] initialPosition = manejo.PosicionInicial(MapaNuevaImagen, ladoSize);
+
+
+            Imagen imagenRecortada = new(MapaNuevaImagen);
+            Bitmap imagenFinal = manejo.EscalarBitmap(manejo.GenerarImagenFinal(ladoSize, initialPosition, imagenRecortada), 1200, 1200);
+            string imagePath = outputPath + "\\" + imageName + "-cent" + ".jpg";
+            imagenFinal.Save(imagePath, ImageFormat.Jpeg);
+            imageNumber++;
+        }
+        catch
+        {
+            Console.WriteLine("Error en imagen: " + path);
+            continue;
+        }
+
         Console.WriteLine("Procesando Imágenes: "+Convert.ToInt32((Convert.ToDouble(imageNumber)/Convert.ToDouble(totalImages))*100)+"%");
     }
 }
@@ -58,5 +67,6 @@ foreach(string ruta in rutasNuevasImagenes)
 Console.WriteLine("");
 Console.WriteLine("Presione una tecla para finalizar: ");
 Console.ReadLine();
+
 Environment.Exit(0);
 
